@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Words Are Ours – Garden Tug of War</title>
+<style>
+:root{--bg:#fff4dc;--ink:#2a2540;--card:#fff;--line:#eadfc6;--pink:#ee4d8b;--blue:#3578ea;--pinkl:#ffe0ec;--bluel:#dde9ff;--sky1:#74c9ff;--sky2:#e9f8ff;--gr1:#78d45f;--gr2:#4fa63f;--hill:#8fdc78;--hill2:#6fc65a;--gw:min(15vw,17vh);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1a2b;--ink:#f6f0e3;--card:#2a2740;--line:#443f63;--pinkl:#4a2540;--bluel:#22385f;--sky1:#26407a;--sky2:#6d88b8;--gr1:#3f8d3b;--gr2:#2f6e2e;--hill:#3b7d3a;--hill2:#2e6a2f}}
+:root[data-theme="dark"]{--bg:#1c1a2b;--ink:#f6f0e3;--card:#2a2740;--line:#443f63;--pinkl:#4a2540;--bluel:#22385f;--sky1:#26407a;--sky2:#6d88b8;--gr1:#3f8d3b;--gr2:#2f6e2e;--hill:#3b7d3a;--hill2:#2e6a2f}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:minmax(200px,44%) 1fr;overflow:hidden}
+#scene{grid-column:1/3;position:relative;overflow:hidden;background:linear-gradient(var(--sky1),var(--sky2) 75%);border-bottom:6px solid var(--gr2)}
+#title{position:absolute;top:8px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.88);color:#2a2540;padding:4px 18px;border-radius:30px;font-weight:bold;font-size:clamp(13px,1.8vw,24px);white-space:nowrap;z-index:6;box-shadow:0 3px 0 rgba(0,0,0,.12)}
+.abs{position:absolute}
+.cloud{font-size:clamp(34px,6vw,80px);opacity:.92;animation:drift 50s linear infinite}
+@keyframes drift{from{transform:translateX(-15vw)}to{transform:translateX(115vw)}}
+.hill{border-radius:50%}
+.tree{font-size:clamp(40px,8vh,90px)}
+#fence{left:0;right:0;bottom:34%;height:11%;background:repeating-linear-gradient(90deg,#fff 0 12px,transparent 12px 24px);border-radius:4px 4px 0 0}
+#fence:before,#fence:after{content:"";position:absolute;left:0;right:0;height:5px;background:#f0e6d2}
+#fence:before{top:25%}#fence:after{top:65%}
+#ground{left:0;right:0;bottom:0;height:36%;background:linear-gradient(var(--gr1),var(--gr2))}
+#pond{left:41%;width:18%;bottom:3%;height:15%;border-radius:50%;background:radial-gradient(#8fdcff,#3aa0e0);border:4px solid #5ab6ee;z-index:2}
+#splash{left:50%;bottom:10%;font-size:clamp(40px,9vh,100px);transform:translateX(-50%);z-index:5;display:none;animation:pop .6s}
+@keyframes pop{from{transform:translateX(-50%) scale(0)}to{transform:translateX(-50%) scale(1)}}
+.girl{position:absolute;bottom:9%;width:var(--gw);transform-origin:50% 100%;transition:left .55s cubic-bezier(.3,1.4,.5,1),right .55s cubic-bezier(.3,1.4,.5,1),transform .6s;z-index:3}
+.girl svg{display:block;width:100%;overflow:visible}
+.R svg{transform:scaleX(-1)}
+.L{left:22%}.R{right:22%}
+.tag{position:absolute;top:-1.7em;left:50%;transform:translateX(-50%);background:var(--c);color:#fff;font-weight:bold;font-size:clamp(12px,1.6vw,22px);padding:2px 14px;border-radius:20px;white-space:nowrap;max-width:20vw;overflow:hidden;text-overflow:ellipsis}
+#rope{position:absolute;left:calc(22% + var(--gw)*.88);right:calc(22% + var(--gw)*.88);bottom:calc(9% + var(--gw)*.75);height:11px;margin-bottom:-5px;border-radius:6px;background:repeating-linear-gradient(90deg,#c0873f 0 9px,#8d5d27 9px 18px);box-shadow:0 3px 0 rgba(0,0,0,.22);z-index:4;transition:left .55s cubic-bezier(.3,1.4,.5,1),right .55s cubic-bezier(.3,1.4,.5,1)}
+#rope.tug{animation:tug .35s}
+@keyframes tug{30%{transform:translateY(-6px) scaleY(1.4)}}
+#flowers{left:0;right:0;bottom:0;display:flex;justify-content:space-around;font-size:clamp(18px,4vh,40px);z-index:5;pointer-events:none;line-height:1}
+.bf{font-size:clamp(20px,4vh,40px);animation:fly 9s ease-in-out infinite;z-index:6}
+@keyframes fly{0%,100%{transform:translate(0,0)}25%{transform:translate(6vw,-3vh)}50%{transform:translate(12vw,2vh)}75%{transform:translate(5vw,-4vh)}}
+.panel{display:flex;padding:clamp(8px,1.4vw,18px);min-height:0}
+.card{flex:1;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;border:4px solid;background:var(--card);transition:box-shadow .2s}
+.pink .card{border-color:var(--pink)}.blue .card{border-color:var(--blue)}
+.head{padding:6px 16px;color:#fff;font-weight:bold;font-size:clamp(17px,2.2vw,32px);display:flex;justify-content:space-between;gap:8px}
+.pink .head{background:var(--pink)}.blue .head{background:var(--blue)}
+.body{flex:1;display:flex;flex-direction:column;gap:clamp(6px,1.2vh,16px);padding:clamp(8px,1.4vw,20px);justify-content:center;min-height:0}
+.q{font-size:clamp(17px,2.4vw,36px);font-weight:bold;line-height:1.25;text-align:center;padding:8px;border-radius:16px}
+.pink .q{background:var(--pinkl)}.blue .q{background:var(--bluel)}
+button.o{font:inherit;font-weight:bold;font-size:clamp(15px,2.1vw,30px);display:flex;align-items:center;gap:12px;text-align:left;padding:clamp(6px,1.3vh,14px) 14px;border-radius:16px;border:3px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;touch-action:manipulation;box-shadow:0 5px 0 var(--line)}
+button.o:active{transform:translateY(4px);box-shadow:0 1px 0 var(--line)}
+button.o i{font-style:normal;flex:none;width:1.7em;height:1.7em;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff}
+.pink button.o i{background:var(--pink)}.blue button.o i{background:var(--blue)}
+button.o.good{background:#35b85a;border-color:#23913f;color:#fff;box-shadow:0 5px 0 #23913f}
+button.o.bad{background:#e0463e;border-color:#b02f28;color:#fff;box-shadow:0 5px 0 #b02f28;animation:shake .4s}
+button.o:disabled{opacity:.45}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.card.lock{filter:grayscale(.8);pointer-events:none}
+.card.flash{box-shadow:0 0 0 8px rgba(53,184,90,.55)}
+#overlay{position:fixed;inset:0;background:rgba(20,15,40,.7);display:flex;align-items:center;justify-content:center;z-index:10;overflow:hidden}
+.box{background:var(--card);color:var(--ink);border-radius:28px;padding:clamp(16px,2.6vw,36px);text-align:center;max-width:min(580px,92vw);margin:12px;border:6px solid #ffd23f;position:relative;z-index:2}
+.box h1{margin:0 0 8px;font-size:clamp(24px,3.8vw,50px);line-height:1.15}.box p{margin:8px 0;font-size:clamp(14px,1.9vw,24px)}
+.box input{font:inherit;font-size:clamp(14px,1.8vw,22px);padding:8px 12px;border-radius:12px;border:3px solid var(--line);width:46%;background:var(--card);color:var(--ink);text-align:center}
+#n1{border-color:var(--pink)}#n2{border-color:var(--blue)}
+.go{font:inherit;font-weight:bold;font-size:clamp(18px,2.4vw,32px);background:#ffd23f;color:#2a2540;border:0;border-radius:18px;padding:10px 34px;margin-top:10px;box-shadow:0 6px 0 #d9aa00;cursor:pointer}
+.go:active{transform:translateY(4px);box-shadow:0 2px 0 #d9aa00}
+.conf{position:absolute;top:-10vh;font-size:clamp(20px,3vw,40px);animation:fall linear forwards;z-index:1}
+@keyframes fall{to{transform:translateY(120vh) rotate(540deg)}}
+#pole{left:50%;bottom:9%;height:24%;width:4px;background:#fff;z-index:2;margin-left:-2px}
+#pole:before{content:"🚩";position:absolute;top:-1em;left:-2px;font-size:clamp(20px,4vh,40px)}
+#rib{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(22px,4vh,44px)}
+.step .in{animation:shuf .6s}
+@keyframes shuf{20%{transform:translateY(-5px)}45%{transform:translateY(0)}70%{transform:translateY(-3px)}}
+</style></head><body>
+<div id="scene">
+<div id="title">🌷 Words Are Ours – Garden Tug of War</div>
+<div class="abs cloud" style="top:12%;left:0">☁️</div><div class="abs cloud" style="top:26%;left:-40vw;animation-delay:-25s">☁️</div>
+<div class="abs" style="right:6%;top:6%;font-size:clamp(40px,8vh,90px)">☀️</div>
+<div class="abs hill" style="left:-12%;width:55%;height:48%;bottom:22%;background:var(--hill)"></div>
+<div class="abs hill" style="right:-12%;width:60%;height:42%;bottom:22%;background:var(--hill2)"></div>
+<div class="abs tree" style="left:6%;bottom:44%">🌳</div><div class="abs tree" style="left:30%;bottom:46%">🌲</div><div class="abs tree" style="right:8%;bottom:44%">🌳</div><div class="abs tree" style="right:32%;bottom:45%">🌳</div>
+<div class="abs" id="fence"></div><div class="abs" id="ground"></div>
+<div class="abs" id="pond"></div><div class="abs" id="splash">💦</div>
+<div class="abs bf" style="left:20%;top:38%">🦋</div><div class="abs bf" style="right:25%;top:30%;animation-delay:-4s">🦋</div><div class="abs bf" style="left:55%;top:22%;animation-delay:-2s">🐝</div>
+<div class="girl L" id="gL" style="--c:var(--pink);--skin:#f6c9a3;--hair:#5a3320"><div class="tag" id="tL"></div></div>
+<div class="girl R" id="gR" style="--c:var(--blue);--skin:#c98d62;--hair:#2b1a12"><div class="tag" id="tR"></div></div>
+<div class="abs" id="pole"></div><div id="rope"><span id="rib">🎀</span></div>
+<div class="abs" id="flowers"><span>🌷</span><span>🌻</span><span>🌼</span><span>🌸</span><span>🌷</span><span>🌻</span><span>🌼</span><span>🌸</span><span>🌷</span><span>🌻</span><span>🌼</span><span>🌸</span></div>
+</div>
+<div class="panel pink"><div class="card" id="pp"></div></div>
+<div class="panel blue"><div class="card" id="pb"></div></div>
+<div id="overlay"><div class="box" id="ov"></div></div>
+<script>
+const GIRL=`<div class="in"><svg viewBox="0 0 100 160"><ellipse cx="50" cy="156" rx="30" ry="4" fill="rgba(0,0,0,.22)"/><line x1="46" y1="118" x2="31" y2="150" stroke="var(--skin)" stroke-width="9" stroke-linecap="round"/><line x1="54" y1="118" x2="66" y2="150" stroke="var(--skin)" stroke-width="9" stroke-linecap="round"/><ellipse cx="29" cy="153" rx="10" ry="5" fill="#3b2a63"/><ellipse cx="69" cy="153" rx="10" ry="5" fill="#3b2a63"/><line class="a1" stroke="var(--skin)" stroke-width="7" stroke-linecap="round"/><g class="bd"><circle cx="25" cy="46" r="9" fill="var(--hair)"/><circle cx="75" cy="46" r="9" fill="var(--hair)"/><path d="M30 130 L38 66 Q50 60 62 66 L70 130 Q50 138 30 130Z" fill="var(--c)"/><path d="M31 122 Q50 132 69 122" stroke="#fff" stroke-width="3" fill="none"/><circle cx="50" cy="40" r="22" fill="var(--skin)"/><path d="M28 40 Q28 14 50 14 Q72 14 72 40 Q64 27 50 27 Q36 27 28 40Z" fill="var(--hair)"/><path d="M50 18 L38 9 L38 26Z M50 18 L62 9 L62 26Z" fill="var(--c)"/><circle cx="42" cy="42" r="3" fill="#2a2540"/><circle cx="58" cy="42" r="3" fill="#2a2540"/><circle cx="36" cy="50" r="4" fill="rgba(255,110,140,.5)"/><circle cx="64" cy="50" r="4" fill="rgba(255,110,140,.5)"/><path d="M43 52 Q50 58 57 52" stroke="#2a2540" stroke-width="2.5" fill="none" stroke-linecap="round"/></g><line class="a2" stroke="var(--skin)" stroke-width="7" stroke-linecap="round"/><circle cx="88" cy="85" r="6.5" fill="var(--skin)"/></svg></div>`;
+document.getElementById('gL').insertAdjacentHTML('beforeend',GIRL);
+document.getElementById('gR').insertAdjacentHTML('beforeend',GIRL);
+const BANK=[
+["The 400 metres race was won by Maria Flores.","Sports reports",["Jam-jar labels","Sports reports","Wall-charts"]],
+["The beach is cleaned every morning.","Guide to the best beaches",["Guide to the best beaches","Timetables","Book of great speeches"]],
+["IN LOVING MEMORY OF HENRY DAVIS","Goodbyes on gravestones",["Joke collections","Goodbyes on gravestones","Results of elections"]],
+["Strawberry Jam, Hilltop Farm","Jam-jar labels",["Jam-jar labels","Love hearts","Sports reports"]],
+["A daffodil is a spring flower.","the names of flowers",["the names of places","the names of flowers","the names of names"]],
+["Pain: the feeling in your body when you are hurt","the words for pain",["the words for pain","How to boil an egg","Details on your cv"]],
+["Place the egg in a pan of boiling water.","How to boil an egg",["Goodbyes on gravestones","the words for pain","How to boil an egg"]],
+["Which word means: angry replies?","retorts",["retorts","anthologies","elections"]],
+["Which word means: collections of poems or stories?","anthologies",["mythologies","anthologies","retorts"]],
+["Which word means: collections of myths?","mythologies",["mythologies","page-turners","elections"]],
+["Which word means: voting for people?","elections",["velociraptors","elections","early-learners"]],
+["Which word means: small, meat-eating dinosaurs?","velociraptors",["velociraptors","anthologies","retorts"]],
+["Which word means: exciting books?","page-turners",["early-learners","page-turners","mythologies"]],
+["Which word means: young people learning?","early-learners",["early-learners","elections","retorts"]],
+["What kind of poem is “Words Are Ours”?","a list poem",["a play","a list poem","a story"]],
+["Who wrote “Words Are Ours”?","Michael Rosen",["Jane Clarke","Michael Rosen","Maria Flores"]]
+];
+const MAX=5;let pos=0,done=false,P,B,AC,names=['Pink Girl','Blue Girl'];
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function beep(f,d){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;o.type='triangle';g.gain.value=.12;o.connect(g);g.connect(AC.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.stop(AC.currentTime+d)}catch(e){}}
+const mk=(id,name,side,icon)=>({el:$(id),name,side,icon,deck:[],i:0,lock:false,score:0});
+function nextQ(p){
+ if(p.i>=p.deck.length){p.deck=sh(BANK);p.i=0}
+ const q=p.deck[p.i++];p.q=q;
+ p.el.classList.remove('lock','flash');
+ p.el.innerHTML=`<div class="head"><span>${p.icon} ${esc(p.name)}</span><span>⭐ ${p.score}</span></div><div class="body"><div class="q">${q[0]}</div></div>`;
+ const b=p.el.querySelector('.body');
+ sh(q[2]).forEach((t,k)=>{const x=document.createElement('button');x.className='o';x.innerHTML=`<i>${'ABC'[k]}</i><span>${t}</span>`;x.onclick=()=>ans(p,x,t);b.appendChild(x)});
+}
+function ans(p,b,t){
+ if(p.lock||done)return;
+ if(t===p.q[1]){
+  b.classList.add('good');p.lock=true;p.score++;beep(660,.15);setTimeout(()=>beep(880,.2),120);
+  pos+=p.side;p.el.classList.add('flash');draw(true);
+  setTimeout(()=>{p.lock=false;if(!done)nextQ(p)},600);
+ }else{
+  b.classList.add('bad');b.disabled=true;p.lock=true;beep(180,.35);
+  setTimeout(()=>p.el.classList.add('lock'),350);
+  setTimeout(()=>{p.lock=false;p.el.classList.remove('lock')},1400);
+ }
+}
+function setLean(g,deg){
+ const a=-deg*Math.PI/180,cx=50,cy=120;
+ const rot=(x,y)=>[cx+(x-cx)*Math.cos(a)-(y-cy)*Math.sin(a),cy+(x-cx)*Math.sin(a)+(y-cy)*Math.cos(a)];
+ g.querySelector('.bd').setAttribute('transform',`rotate(${-deg} ${cx} ${cy})`);
+ const set=(el,p,q)=>{el.setAttribute('x1',p[0]);el.setAttribute('y1',p[1]);el.setAttribute('x2',q[0]);el.setAttribute('y2',q[1])};
+ set(g.querySelector('.a1'),rot(44,72),[88,85]);set(g.querySelector('.a2'),rot(56,74),[88,85]);
+}
+function draw(tug){
+ const d=pos*3.2,pl=22+d,br=22-d;
+ $('gL').style.left=pl+'%';$('gR').style.right=br+'%';
+ const r=$('rope');r.style.left=`calc(${pl}% + var(--gw)*.88)`;r.style.right=`calc(${br}% + var(--gw)*.88)`;
+ if(tug){r.classList.remove('tug');void r.offsetWidth;r.classList.add('tug');
+  ['gL','gR'].forEach(i=>$(i).classList.add('step'));setTimeout(()=>['gL','gR'].forEach(i=>$(i).classList.remove('step')),650)}
+ setLean($('gL'),12-1.6*pos*1);setLean($('gR'),12+1.6*pos);
+ $('gL').style.transform='';$('gR').style.transform='';
+ $('splash').style.display='none';
+ if(Math.abs(pos)>=MAX){
+  done=true;const w=pos<0?P:B;
+  $(pos<0?'gR':'gL').style.transform=`rotate(${pos<0?-88:88}deg)`;
+  setTimeout(()=>{$('splash').style.display='block';beep(300,.4)},500);
+  [523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,.3),700+i*150));
+  setTimeout(()=>show(`<h1>🎉 ${esc(w.name)} wins! 🎉</h1><p>${w.icon} Amazing word power!</p><p>${esc(P.name)} ${P.score} – ${B.score} ${esc(B.name)}</p><button class="go" onclick="start()">Play again</button>`,true),1800);
+ }
+}
+function show(h,c){
+ const o=$('overlay');$('ov').innerHTML=h;
+ o.querySelectorAll('.conf').forEach(e=>e.remove());
+ if(c)for(let i=0;i<40;i++){const s=document.createElement('span');s.className='conf';s.textContent=['🎉','🌷','🦋','🌻','✨','🌸'][i%6];s.style.left=Math.random()*100+'%';s.style.animationDuration=(2+Math.random()*3)+'s';s.style.animationDelay=Math.random()*1.5+'s';o.appendChild(s)}
+ o.style.display='flex';
+}
+function start(){
+ if($('n1')){names=[$('n1').value.trim()||'Pink Girl',$('n2').value.trim()||'Blue Girl']}
+ pos=0;done=false;P=mk('pp',names[0],-1,'🌸');B=mk('pb',names[1],1,'💙');
+ $('tL').textContent=names[0];$('tR').textContent=names[1];
+ $('overlay').style.display='none';
+ draw();nextQ(P);nextQ(B);
+}
+$('tL').textContent=names[0];$('tR').textContent=names[1];draw();
+show(`<h1>🌷 Words Are Ours<br>Garden Tug of War</h1><p>Type the girls’ names (or just press Start):</p><p><input id="n1" placeholder="Left girl 🌸" maxlength="14"> <input id="n2" placeholder="Right girl 💙" maxlength="14"></p><p>Both girls answer at the same time. Every right answer pulls the rope and drags the other girl closer… until she splashes into the pond! 💦</p><button class="go" onclick="start()">Start!</button>`);
+</script></body></html>
